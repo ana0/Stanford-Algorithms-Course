@@ -11,23 +11,17 @@ def merge_sort(to_sort):
 	_sorted = []
 	a = 0
 	b = 0
-	for i in range(len(to_sort)):
-		try:
-			if a_list[a] <= b_list[b]:
-				_sorted.append(a_list[a])
-				a += 1 
-			elif b_list[b] < a_list[a]:
-				_sorted.append(b_list[b])
-				b += 1 
-		except IndexError:
-			if a == len(a_list):
-				if b == len(b_list):
-					break
-				_sorted.append(b_list[b])
-				b += 1
-			elif b == len(b_list):
-				_sorted.append(a_list[a])
-				a += 1
+	# for i in range(len(to_sort)):
+	while a < len(a_list) and b < len(b_list):
+		if a_list[a] <= b_list[b]:
+			_sorted.append(a_list[a])
+			a += 1 
+		elif b_list[b] < a_list[a]:
+			_sorted.append(b_list[b])
+			b += 1 
+
+	_sorted += a_list[a:]
+	_sorted += b_list[b:]
 	return _sorted
 
 print sorted(unsorted)
