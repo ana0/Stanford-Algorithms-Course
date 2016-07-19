@@ -1,13 +1,13 @@
 unsorted = [1,4,6,3,2,9,4,2,5,2,8,67,23,3,5,7,9,42]
 
 def merge_sort(to_sort):
-	print to_sort
-	if len(to_sort) <= 2:
+	# print to_sort
+	if len(to_sort) <= 1:
 		return to_sort
 	a_list = merge_sort(to_sort[0:len(to_sort)/2])
 	b_list = merge_sort(to_sort[len(to_sort)/2:len(unsorted)])
-	print a_list
-	print b_list
+	# print a_list
+	# print b_list
 	_sorted = []
 	a = 0
 	b = 0
@@ -30,5 +30,5 @@ def merge_sort(to_sort):
 				a += 1
 	return _sorted
 
-print sort(to_sort)
+print sorted(unsorted)
 print merge_sort(unsorted)
