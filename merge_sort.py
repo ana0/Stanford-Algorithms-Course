@@ -4,7 +4,7 @@ def merge_sort(to_sort):
 	if len(to_sort) <= 1:
 		return to_sort
 	a_list = merge_sort(to_sort[0:len(to_sort)/2])
-	b_list = merge_sort(to_sort[len(to_sort)/2:len(unsorted)])
+	b_list = merge_sort(to_sort[len(to_sort)/2:len(to_sort)])
 	_sorted = []
 	a = 0
 	b = 0
@@ -29,7 +29,7 @@ def merge_sort_2(to_sort):
 	if len(to_sort) <= 1:
 		return to_sort
 	a_list = merge_sort(to_sort[0:len(to_sort)/2])
-	b_list = merge_sort(to_sort[len(to_sort)/2:len(unsorted)])
+	b_list = merge_sort(to_sort[len(to_sort)/2:len(to_sort)])
 	_sorted = []
 	a = 0
 	b = 0
