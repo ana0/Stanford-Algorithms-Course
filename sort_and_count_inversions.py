@@ -1,6 +1,9 @@
 unsorted = [1,4,6,2,3,5]
 num_inversions = 0
 
+f = open("IntegerArray.txt")
+_unsorted = [int(line.strip("\n")) for line in f]
+
 def count_inversions(to_sort, count):
 	if len(to_sort) <= 1:
 		return (to_sort, count)
@@ -12,7 +15,6 @@ def count_inversions(to_sort, count):
 	a = 0
 	b = 0
 	while a < len(a_list) and b < len(b_list):
-		print _sorted
 		if a_list[a] <= b_list[b]:
 			_sorted.append(a_list[a])
 			a += 1 
@@ -27,5 +29,7 @@ def count_inversions(to_sort, count):
 		pass
 	return (_sorted, count_all)
 
-print count_inversions(unsorted, num_inversions)
+answer = count_inversions(_unsorted, num_inversions)
+print answer[1]
+
 
