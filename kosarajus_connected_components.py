@@ -37,7 +37,7 @@ def first_pass(graph):
     count = 0
     finish_time = {}
     for i in graph:
-        print "checking", i
+        #print "checking", i
         if i not in explored:
             explored.append(i)
         stack = graph[i]
@@ -46,12 +46,43 @@ def first_pass(graph):
             if next not in explored:
                 explored.append(next)
                 stack.append(next)
-                stack = stack + graph[next]
+                if next in graph:
+                    stack = stack + graph[next]
             else:
                 if next not in finish_time:
                     finish_time[next] = count
                     count += 1
     return finish_time
 
+def finishing_times(times):
+    reversed_times = ["i" for time in times]
+    for time in times:
+        reversed_times[times[time]] = time
+    reversed_times.reverse()
+    return reversed_times
+
+def second_pass(graph, times):
+    explored = []
+    all_paths = []
+    for i in times:
+        path_size = 1
+        print "checking", i
+        if i not in explored:
+            explored.append(i)
+        stack = graph[i]
+        while stack:
+            next = stack.pop()
+            if next not in explored:
+                path_size += 1
+                explored.append(next)
+                if next in graph:
+                    stack = stack + graph[next]
+        all_paths.append(path_size)
+    return all_paths
+
 test = create_reversed_graph("text.txt")
-print test
+ok = first_pass(test)
+# print ok
+cats = finishing_times(ok)
+ermk = create_graph("text.txt")
+print second_pass(ermk, cats)
