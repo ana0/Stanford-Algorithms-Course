@@ -1,5 +1,3 @@
-import random
-
 test_dict = {"A": ["C"],
             "B": ["A"],
             "C": ["B", "D"],
@@ -16,9 +14,9 @@ def create_graph(filename):
     for line in f: 
         line = line.split()
         if line[0] in graph:
-            graph[line[0]].extend(line[1:])
+            graph[int(line[0])].extend([int(i) for i in line[1:]])
         else:
-            graph[line[0]] = line[1:]
+            graph[int(line[0])] = [int(i) for i in line[1:]]
     return graph
 
 def create_reversed_graph(filename):
@@ -27,24 +25,24 @@ def create_reversed_graph(filename):
     for line in f: 
         line = line.split()
         if line[1] in graph:
-            graph[line[1]].extend(line[:1])
+            graph[int(line[1])].extend([int(i) for i in line[:1]])
         else:
-            graph[line[1]] = line[:1]
+            graph[int(line[1])] = [int(i) for i in line[:1]]
     return graph
 
 def first_pass(graph):
-    explored = []
+    explored = set()
     count = 0
     finish_time = {}
     for i in graph:
-        #print "checking", i
-        if i not in explored:
-            explored.append(i)
+        print "checking", i
+        explored.add(i)
         stack = graph[i]
-        while stack:
+        while stack: 
+            print "stack is", stack
             next = stack.pop()
             if next not in explored:
-                explored.append(next)
+                explored.add(next)
                 stack.append(next)
                 if next in graph:
                     stack = stack + graph[next]
@@ -62,27 +60,42 @@ def finishing_times(times):
     return reversed_times
 
 def second_pass(graph, times):
-    explored = []
+    explored = set()
     all_paths = []
     for i in times:
         path_size = 1
         print "checking", i
-        if i not in explored:
-            explored.append(i)
+        explored.add(i)
         stack = graph[i]
         while stack:
             next = stack.pop()
             if next not in explored:
                 path_size += 1
-                explored.append(next)
+                explored.add(next)
                 if next in graph:
                     stack = stack + graph[next]
         all_paths.append(path_size)
     return all_paths
 
-test = create_reversed_graph("text.txt")
+def get_max_five(all_paths):
+    for i in range(6):
+        tuft = max(all_paths)
+        all_paths.remove(tuft)
+        print tuft
+
+test = create_reversed_graph("SCC.txt")
+print "created reversed graph"
+print
 ok = first_pass(test)
-# print ok
+print "computed finishing times"
+print 
 cats = finishing_times(ok)
-ermk = create_graph("text.txt")
-print second_pass(ermk, cats)
+print "formatted finishing_times"
+print
+ermk = create_graph("SCC.txt")
+print "create non-reversed graph"
+print
+hulo = second_pass(ermk, cats)
+print "computed strongly connected components"
+print
+whoo = get_max_five(hulo)
